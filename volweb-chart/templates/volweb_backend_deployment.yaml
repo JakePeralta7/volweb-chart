@@ -36,7 +36,7 @@ spec:
           {{- if .Values.backend.persistence.enabled }}
           volumeMounts:
             - name: media
-              mountPath: {{ .Values.backend.persistence.mountPath }}
+              mountPath: /app/media
           {{- end }}
       {{- if .Values.backend.persistence.enabled }}
       volumes:
