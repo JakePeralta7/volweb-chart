@@ -44,7 +44,7 @@ spec:
           {{- if .Values.workers.persistence.enabled }}
           volumeMounts:
             - name: media
-              mountPath: {{ .Values.workers.persistence.mountPath }}
+              mountPath: /app/media
           {{- end }}
       {{- if .Values.workers.persistence.enabled }}
       volumes:
