@@ -1,8 +1,8 @@
-{{- if .Values.postgresql.enabled -}}
+{{- if .Values.postgresdb.enabled -}}
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ include "volweb.fullname" . }}-postgresql
+  name: {{ include "volweb.fullname" . }}-postgresdb
   labels:
     {{- include "volweb.labels" . | nindent 4 }}
     app.kubernetes.io/component: postgresql
@@ -20,26 +20,26 @@ spec:
     spec:
       containers:
         - name: postgresql
-          image: "{{ .Values.postgresql.image.repository }}:{{ .Values.postgresql.image.tag }}"
-          imagePullPolicy: {{ .Values.postgresql.image.pullPolicy }}
+          image: "{{ .Values.postgresql.image.repository }}:{{ .Values.postgresdb.image.tag }}"
+          imagePullPolicy: {{ .Values.postgresdb.image.pullPolicy }}
           ports:
             - name: postgres
               containerPort: 5432
               protocol: TCP
           env:
-            {{- range $key, $value := .Values.postgresql.env }}
+            {{- range $key, $value := .Values.postgresdb.env }}
             - name: {{ $key }}
               value: {{ $value | quote }}
             {{- end }}
-          {{- if .Values.postgresql.persistence.enabled }}
+          {{- if .Values.postgresdb.persistence.enabled }}
           volumeMounts:
             - name: data
-              mountPath: /var/lib/postgresql/data
+              mountPath: /var/lib/postgresdb/data
           {{- end }}
-      {{- if .Values.postgresql.persistence.enabled }}
+      {{- if .Values.postgresdb.persistence.enabled }}
       volumes:
         - name: data
           persistentVolumeClaim:
-            claimName: {{ include "volweb.fullname" . }}-postgresql-data
+            claimName: {{ include "volweb.fullname" . }}-postgresdb-data
       {{- end }}
 {{- end }}
