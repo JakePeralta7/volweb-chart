@@ -1,0 +1,55 @@
+{{- if .Values.workers.enabled -}}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "volweb.fullname" . }}-workers
+  labels:
+    {{- include "volweb.labels" . | nindent 4 }}
+    app.kubernetes.io/component: workers
+spec:
+  replicas: {{ .Values.workers.replicaCount }}
+  selector:
+    matchLabels:
+      {{- include "volweb.selectorLabels" . | nindent 6 }}
+      app.kubernetes.io/component: workers
+  template:
+    metadata:
+      labels:
+        {{- include "volweb.selectorLabels" . | nindent 8 }}
+        app.kubernetes.io/component: workers
+    spec:
+      containers:
+        - name: workers
+          image: "{{ .Values.workers.image.repository }}:{{ .Values.workers.image.tag }}"
+          imagePullPolicy: {{ .Values.workers.image.pullPolicy }}
+          # Command to run Celery workers
+          command: ["celery"]
+          args: 
+          - "-A"
+          - "core"
+          - "worker"
+          - "--loglevel=info"
+          env:
+            {{- range $key, $value := .Values.workers.env }}
+            - name: {{ $key }}
+              value: {{ $value | quote }}
+            {{- end }}
+            # Add service discovery for Redis and PostgreSQL
+            - name: POSTGRES_HOST
+              value: {{ include "volweb.fullname" . }}-postgresdb
+            - name: REDIS_HOST
+              value: {{ include "volweb.fullname" . }}-redis
+          resources:
+            {{- toYaml .Values.workers.resources | nindent 12 }}
+          {{- if .Values.workers.persistence.enabled }}
+          volumeMounts:
+            - name: media
+              mountPath: {{ .Values.workers.persistence.mountPath }}
+          {{- end }}
+      {{- if .Values.workers.persistence.enabled }}
+      volumes:
+        - name: media
+          persistentVolumeClaim:
+            claimName: {{ include "volweb.fullname" . }}-backend-media  # Share PVC with backend
+      {{- end }}
+{{- end }}
