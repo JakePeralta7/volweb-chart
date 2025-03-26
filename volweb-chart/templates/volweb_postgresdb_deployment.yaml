@@ -20,7 +20,7 @@ spec:
     spec:
       containers:
         - name: postgresql
-          image: "{{ .Values.postgresql.image.repository }}:{{ .Values.postgresdb.image.tag }}"
+          image: "{{ .Values.postgresdb.image.repository }}:{{ .Values.postgresdb.image.tag }}"
           imagePullPolicy: {{ .Values.postgresdb.image.pullPolicy }}
           ports:
             - name: postgres
