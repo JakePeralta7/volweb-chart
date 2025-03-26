@@ -42,6 +42,6 @@ spec:
       volumes:
         - name: media
           persistentVolumeClaim:
-            claimName: {{ include "volweb.fullname" . }}-backend-media
+            claimName: {{ include "volweb.fullname" . }}-media
       {{- end }}
 {{- end }}
