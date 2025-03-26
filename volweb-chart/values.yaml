@@ -58,6 +58,10 @@ backend:
 workers:
   enabled: true
   replicaCount: 2
+  image:
+    repository: forensicxlab/volweb-backend
+    tag: latest
+    pullPolicy: IfNotPresent
   resources:
     limits:
       cpu: 500m
@@ -67,12 +71,19 @@ workers:
       memory: 256Mi
   env:
     DEBUG: "False"
+    SECRET_KEY: "change-me-in-production"
+    ALLOWED_HOSTS: "*"
+    CSRF_TRUSTED_ORIGINS: "https://yourdomain.com:3000"
+    DATABASE_URL: "postgres://postgres:postgres@db:5432/postgres"
+    REDIS_URL: "redis://redis:6379/0"
+    # Celery specific settings
+    CELERY_BROKER_URL: "redis://redis:6379/0"
+    CELERY_RESULT_BACKEND: "redis://redis:6379/0"
   persistence:
     enabled: true
     storageClass: ""
-    size: 100Gi
+    size: 1Gi
     mountPath: /app/media
-
 
 # Database (PostgreSQL)
 postgresdb:
