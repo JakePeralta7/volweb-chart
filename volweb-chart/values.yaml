@@ -14,13 +14,6 @@ frontend:
   service:
     type: ClusterIP
     port: 3000
-  resources:
-    limits:
-      cpu: 200m
-      memory: 256Mi
-    requests:
-      cpu: 100m
-      memory: 128Mi
 
 # Backend service
 backend:
@@ -33,13 +26,6 @@ backend:
   service:
     type: ClusterIP
     port: 8000
-  resources:
-    limits:
-      cpu: 500m
-      memory: 512Mi
-    requests:
-      cpu: 200m
-      memory: 256Mi
   env:
     DATABASE: "postgres"
     DATABASE_HOST: "volweb-postgresdb"
@@ -64,13 +50,6 @@ workers:
     repository: forensicxlab/volweb-backend
     tag: latest
     pullPolicy: IfNotPresent
-  resources:
-    limits:
-      cpu: 500m
-      memory: 2Gi
-    requests:
-      cpu: 200m
-      memory: 1Gi
   env:
     DATABASE: "postgres"
     DATABASE_HOST: "volweb-postgresdb"
