@@ -102,7 +102,7 @@ postgresdb:
     enabled: true
     size: 5Gi
   env:
-    POSTGRES_USER: "volweb"  # Use the actual value
+    POSTGRES_USER: "volweb"
     POSTGRES_PASSWORD: "volweb"
     POSTGRES_DB: "volweb"
 
