@@ -1,18 +1,18 @@
-{{- if .Values.postgresql.enabled -}}
+{{- if .Values.postgresdb.enabled -}}
 apiVersion: v1
 kind: Service
 metadata:
-  name: {{ include "volweb.fullname" . }}-postgresql
+  name: {{ include "volweb.fullname" . }}-postgresdb
   labels:
     {{- include "volweb.labels" . | nindent 4 }}
-    app.kubernetes.io/component: postgresql
+    app.kubernetes.io/component: postgresdb
 spec:
   ports:
-    - port: {{ .Values.postgresql.service.port }}
+    - port: {{ .Values.postgresdb.service.port }}
       targetPort: postgres
       protocol: TCP
       name: postgres
   selector:
     {{- include "volweb.selectorLabels" . | nindent 4 }}
-    app.kubernetes.io/component: postgresql
+    app.kubernetes.io/component: postgresdb
 {{- end }}
