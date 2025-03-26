@@ -16,7 +16,7 @@ spec:
       storage: {{ .Values.backend.persistence.size }}
 {{- end }}
 
-{{- if and .Values.postgresdb.enabled .Values.postgresdb.persistence.enabled -}}
+{{- if .Values.postgresdb.persistence.enabled -}}
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
@@ -35,7 +35,7 @@ spec:
       storage: {{ .Values.postgresdb.persistence.size }}
 {{- end }}
 
-{{- if and .Values.redis.enabled .Values.redis.persistence.enabled -}}
+{{- if .Values.redis.persistence.enabled -}}
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
