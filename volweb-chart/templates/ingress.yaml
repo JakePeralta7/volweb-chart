@@ -28,14 +28,13 @@ spec:
     - host: {{ .host | quote }}
       http:
         paths:
-          {{- range .paths }}
-          - path: {{ .path }}
-            pathType: {{ .pathType }}
+          # Make sure there's at least one path defined
+          - path: /
+            pathType: Prefix
             backend:
               service:
                 name: {{ include "volweb.fullname" $ }}-nginx
                 port:
                   number: {{ $.Values.nginx.service.port }}
-          {{- end }}
     {{- end }}
 {{- end }}
