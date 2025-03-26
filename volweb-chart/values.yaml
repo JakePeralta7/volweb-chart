@@ -55,7 +55,6 @@ backend:
     enabled: true
     storageClass: "standard"
     size: 1Gi
-    mountPath: /app/media
 
 # Workers service (Celery)
 workers:
@@ -87,7 +86,6 @@ workers:
     enabled: true
     storageClass: "standard"
     size: 1Gi
-    mountPath: /app/media
 
 # Database (PostgreSQL)
 postgresdb:
@@ -100,6 +98,7 @@ postgresdb:
     port: 5432
   persistence:
     enabled: true
+    storageClass: "standard"
     size: 1Gi
   env:
     POSTGRES_USER: "volweb"
