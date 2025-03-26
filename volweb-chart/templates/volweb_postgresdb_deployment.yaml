@@ -19,7 +19,7 @@ spec:
         app.kubernetes.io/component: postgresdb
     spec:
       containers:
-        - name: postgresql
+        - name: postgresdb
           image: "{{ .Values.postgresdb.image.repository }}:{{ .Values.postgresdb.image.tag }}"
           imagePullPolicy: {{ .Values.postgresdb.image.pullPolicy }}
           ports:
