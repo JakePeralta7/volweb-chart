@@ -40,6 +40,9 @@ spec:
           {{- end }}
       {{- if .Values.backend.persistence.enabled }}
       volumes:
+        - name: staticfiles
+          persistentVolumeClaim:
+            claimName: {{ include "volweb.fullname" . }}-staticfiles
         - name: media
           persistentVolumeClaim:
             claimName: {{ include "volweb.fullname" . }}-media
