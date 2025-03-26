@@ -2,6 +2,19 @@
 nameOverride: ""
 fullnameOverride: ""
 
+global:
+  database: "postgres"
+  database_host: "volweb-postgresdb"
+  database_port: 5432
+  postgres_user: "volweb"
+  postgres_passowrd: "volweb"
+  postgres_db: "volweb"
+  django_secret: "change_me_or_die"
+  csrf_trusted_origins: "http://localhost:3000"
+  broker_host: "volweb-redis"
+  broker_port: 6379
+  
+
 # Frontend service
 frontend:
   enabled: true
@@ -20,8 +33,6 @@ frontend:
     requests:
       cpu: 100m
       memory: 128Mi
-  env:
-    NODE_ENV: production
 
 # Backend service
 backend:
@@ -42,12 +53,16 @@ backend:
       cpu: 200m
       memory: 256Mi
   env:
-    DEBUG: "False"
-    SECRET_KEY: "change-me-in-production"
-    ALLOWED_HOSTS: "*"
-    CSRF_TRUSTED_ORIGINS: "https://yourdomain.com:3000"
-    DATABASE_URL: "postgres://postgres:postgres@db:5432/postgres"
-    REDIS_URL: "redis://redis:6379/0"
+    DATABASE: "{{ .global.database }}"
+    DATABASE_HOST: "{{ .global.database_host }}"
+    CSRF_TRUSTED_ORIGINS: "{{ .global.csrf_trusted_origins }}"
+    DATABASE_PORT: "{{ .global.database_port }}"
+    POSTGRES_USER: "{{ .global.postgres_user }}"
+    POSTGRES_PASSWORD: "{{ .global.postgres_password }}"
+    POSTGRES_DB: "{{ .global.postgres_db }}"
+    DJANGO_SECRET: "{{ .global.django_secret }}"
+    BROKER_HOST: "{{ .global.broker_host }}"
+    BROKER_PORT: "{{ .global.broker_port }}"
   persistence:
     enabled: true
     storageClass: ""
@@ -65,24 +80,25 @@ workers:
   resources:
     limits:
       cpu: 500m
-      memory: 512Mi
+      memory: 2Gi
     requests:
       cpu: 200m
-      memory: 256Mi
+      memory: 1Gi
   env:
-    DEBUG: "False"
-    SECRET_KEY: "change-me-in-production"
-    ALLOWED_HOSTS: "*"
-    CSRF_TRUSTED_ORIGINS: "https://yourdomain.com:3000"
-    DATABASE_URL: "postgres://postgres:postgres@db:5432/postgres"
-    REDIS_URL: "redis://redis:6379/0"
-    # Celery specific settings
-    CELERY_BROKER_URL: "redis://redis:6379/0"
-    CELERY_RESULT_BACKEND: "redis://redis:6379/0"
+    DATABASE: "{{ .global.database }}"
+    DATABASE_HOST: "{{ .global.database_host }}"
+    CSRF_TRUSTED_ORIGINS: "{{ .global.csrf_trusted_origins }}"
+    DATABASE_PORT: "{{ .global.database_port }}"
+    POSTGRES_USER: "{{ .global.postgres_user }}"
+    POSTGRES_PASSWORD: "{{ .global.postgres_password }}"
+    POSTGRES_DB: "{{ .global.postgres_db }}"
+    DJANGO_SECRET: "{{ .global.django_secret }}"
+    BROKER_HOST: "{{ .global.broker_host }}"
+    BROKER_PORT: "{{ .global.broker_port }}"
   persistence:
     enabled: true
     storageClass: ""
-    size: 1Gi
+    size: 100Gi
     mountPath: /app/media
 
 # Database (PostgreSQL)
@@ -98,9 +114,9 @@ postgresdb:
     enabled: true
     size: 5Gi
   env:
-    POSTGRES_PASSWORD: "postgres"
-    POSTGRES_USER: "postgres"
-    POSTGRES_DB: "postgres"
+    POSTGRES_USER: "{{ .global.postgres_user }}"
+    POSTGRES_PASSWORD: "{{ .global.postgres_password }}"
+    POSTGRES_DB: "{{ .global.postgres_db }}"
 
 # Redis
 redis:
