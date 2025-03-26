@@ -43,7 +43,7 @@ backend:
   env:
     DATABASE: "postgres"
     DATABASE_HOST: "volweb-postgresdb"
-    CSRF_TRUSTED_ORIGINS: "http://localhost:3000"
+    CSRF_TRUSTED_ORIGINS: "http://10.113.80.205.nip.io:3000"
     DATABASE_PORT: "5432"
     POSTGRES_USER: "volweb"
     POSTGRES_PASSWORD: "volweb"
@@ -54,7 +54,7 @@ backend:
   persistence:
     enabled: true
     storageClass: ""
-    size: 100Gi
+    size: 1Gi
     mountPath: /app/media
 
 # Workers service (Celery)
@@ -75,7 +75,7 @@ workers:
   env:
     DATABASE: "postgres"
     DATABASE_HOST: "volweb-postgresdb"
-    CSRF_TRUSTED_ORIGINS: "http://localhost:3000"
+    CSRF_TRUSTED_ORIGINS: "http://10.113.80.205.nip.io:3000"
     DATABASE_PORT: "5432"
     POSTGRES_USER: "volweb"
     POSTGRES_PASSWORD: "volweb"
@@ -86,7 +86,7 @@ workers:
   persistence:
     enabled: true
     storageClass: ""
-    size: 100Gi
+    size: 1Gi
     mountPath: /app/media
 
 # Database (PostgreSQL)
@@ -100,7 +100,7 @@ postgresdb:
     port: 5432
   persistence:
     enabled: true
-    size: 5Gi
+    size: 1Gi
   env:
     POSTGRES_USER: "volweb"
     POSTGRES_PASSWORD: "volweb"
@@ -139,11 +139,11 @@ ingress:
   annotations:
     nginx.ingress.kubernetes.io/proxy-body-size: "100m"
   hosts:
-    - host: volweb.example.com
+    - host: 10.113.80.205.nip.io
       paths:
         - path: /
           pathType: Prefix
   tls:
     - secretName: volweb-tls
       hosts:
-        - volweb.example.com
+        - 10.113.80.205.nip.io
