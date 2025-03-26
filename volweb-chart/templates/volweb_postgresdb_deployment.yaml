@@ -34,7 +34,7 @@ spec:
           {{- if .Values.postgresdb.persistence.enabled }}
           volumeMounts:
             - name: data
-              mountPath: /var/lib/postgresdb/data
+              mountPath: /var/lib/postgresql/data
           {{- end }}
       {{- if .Values.postgresdb.persistence.enabled }}
       volumes:
