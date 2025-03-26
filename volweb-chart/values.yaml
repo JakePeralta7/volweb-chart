@@ -61,10 +61,6 @@ workers:
     DJANGO_SECRET: "change_me_or_die"
     BROKER_HOST: "volweb-redis"
     BROKER_PORT: "6379"
-  persistence:
-    enabled: true
-    storageClass: "standard"
-    size: 1Gi
 
 # Database (PostgreSQL)
 postgresdb:
@@ -97,7 +93,6 @@ redis:
     enabled: true
     storageClass: "standard"
     size: 1Gi
-    mountPath: /data
 
 # Nginx for routing/proxy
 nginx:
