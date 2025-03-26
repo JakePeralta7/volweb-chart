@@ -1,0 +1,18 @@
+{{- if .Values.postgresdb.persistence.enabled -}}
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: {{ include "volweb.fullname" . }}-postgresdb-data
+  labels:
+    {{- include "volweb.labels" . | nindent 4 }}
+spec:
+  accessModes:
+    - ReadWriteOnce
+  {{- if .Values.postgresdb.persistence.storageClass }}
+  storageClassName: {{ .Values.postgresdb.persistence.storageClass }}
+  {{- end }}
+  resources:
+    requests:
+      storage: {{ .Values.postgresdb.persistence.size }}
+{{- end }}
