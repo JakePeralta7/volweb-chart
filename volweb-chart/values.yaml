@@ -7,7 +7,7 @@ frontend:
   enabled: true
   replicaCount: 1
   image:
-    repository: volweb-frontend
+    repository: forensicxlab/volweb-frontend
     tag: latest
     pullPolicy: IfNotPresent
   service:
@@ -28,7 +28,7 @@ backend:
   enabled: true
   replicaCount: 1
   image:
-    repository: volweb-backend
+    repository: forensicxlab/volweb-backend
     tag: latest
     pullPolicy: IfNotPresent
   service:
@@ -51,8 +51,28 @@ backend:
   persistence:
     enabled: true
     storageClass: ""
-    size: 1Gi
+    size: 100Gi
     mountPath: /app/media
+
+# Workers service (Celery)
+workers:
+  enabled: true
+  replicaCount: 2
+  resources:
+    limits:
+      cpu: 500m
+      memory: 512Mi
+    requests:
+      cpu: 200m
+      memory: 256Mi
+  env:
+    DEBUG: "False"
+  persistence:
+    enabled: true
+    storageClass: ""
+    size: 100Gi
+    mountPath: /app/media
+
 
 # Database (PostgreSQL)
 postgresdb:
