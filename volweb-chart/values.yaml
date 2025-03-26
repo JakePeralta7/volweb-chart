@@ -1,18 +1,6 @@
 # Global settings
 nameOverride: ""
 fullnameOverride: ""
-
-global:
-  database: "postgres"
-  database_host: "volweb-postgresdb"
-  database_port: 5432
-  postgres_user: "volweb"
-  postgres_passowrd: "volweb"
-  postgres_db: "volweb"
-  django_secret: "change_me_or_die"
-  csrf_trusted_origins: "http://localhost:3000"
-  broker_host: "volweb-redis"
-  broker_port: 6379
   
 
 # Frontend service
@@ -53,16 +41,16 @@ backend:
       cpu: 200m
       memory: 256Mi
   env:
-    DATABASE: "{{ .global.database }}"
-    DATABASE_HOST: "{{ .global.database_host }}"
-    CSRF_TRUSTED_ORIGINS: "{{ .global.csrf_trusted_origins }}"
-    DATABASE_PORT: "{{ .global.database_port }}"
-    POSTGRES_USER: "{{ .global.postgres_user }}"
-    POSTGRES_PASSWORD: "{{ .global.postgres_password }}"
-    POSTGRES_DB: "{{ .global.postgres_db }}"
-    DJANGO_SECRET: "{{ .global.django_secret }}"
-    BROKER_HOST: "{{ .global.broker_host }}"
-    BROKER_PORT: "{{ .global.broker_port }}"
+    DATABASE: "postgres"
+    DATABASE_HOST: "volweb-postgresdb"
+    CSRF_TRUSTED_ORIGINS: "http://localhost:3000"
+    DATABASE_PORT: "5432"
+    POSTGRES_USER: "volweb"
+    POSTGRES_PASSWORD: "volweb"
+    POSTGRES_DB: "volweb"
+    DJANGO_SECRET: "change_me_or_die"
+    BROKER_HOST: "volweb-redis"
+    BROKER_PORT: "6379"
   persistence:
     enabled: true
     storageClass: ""
@@ -85,16 +73,16 @@ workers:
       cpu: 200m
       memory: 1Gi
   env:
-    DATABASE: "{{ .global.database }}"
-    DATABASE_HOST: "{{ .global.database_host }}"
-    CSRF_TRUSTED_ORIGINS: "{{ .global.csrf_trusted_origins }}"
-    DATABASE_PORT: "{{ .global.database_port }}"
-    POSTGRES_USER: "{{ .global.postgres_user }}"
-    POSTGRES_PASSWORD: "{{ .global.postgres_password }}"
-    POSTGRES_DB: "{{ .global.postgres_db }}"
-    DJANGO_SECRET: "{{ .global.django_secret }}"
-    BROKER_HOST: "{{ .global.broker_host }}"
-    BROKER_PORT: "{{ .global.broker_port }}"
+    DATABASE: "postgres"
+    DATABASE_HOST: "volweb-postgresdb"
+    CSRF_TRUSTED_ORIGINS: "http://localhost:3000"
+    DATABASE_PORT: "5432"
+    POSTGRES_USER: "volweb"
+    POSTGRES_PASSWORD: "volweb"
+    POSTGRES_DB: "volweb"
+    DJANGO_SECRET: "change_me_or_die"
+    BROKER_HOST: "volweb-redis"
+    BROKER_PORT: "6379"
   persistence:
     enabled: true
     storageClass: ""
@@ -114,9 +102,9 @@ postgresdb:
     enabled: true
     size: 5Gi
   env:
-    POSTGRES_USER: "{{ .global.postgres_user }}"
-    POSTGRES_PASSWORD: "{{ .global.postgres_password }}"
-    POSTGRES_DB: "{{ .global.postgres_db }}"
+    POSTGRES_USER: "volweb"  # Use the actual value
+    POSTGRES_PASSWORD: "volweb"
+    POSTGRES_DB: "volweb"
 
 # Redis
 redis:
