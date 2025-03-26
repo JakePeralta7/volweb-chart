@@ -18,6 +18,10 @@ spec:
         {{- include "volweb.selectorLabels" . | nindent 8 }}
         app.kubernetes.io/component: frontend
     spec:
+      initContainers:
+        - name: wait-for-backend
+          image: busybox:1.28
+          command: ['sh', '-c', 'until nslookup {{ include "volweb.fullname" . }}-backend; do echo waiting for backend; sleep 2; done']
       containers:
         - name: frontend
           image: "{{ .Values.frontend.image.repository }}:{{ .Values.frontend.image.tag }}"
