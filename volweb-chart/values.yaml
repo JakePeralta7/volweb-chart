@@ -43,7 +43,7 @@ backend:
   env:
     DATABASE: "postgres"
     DATABASE_HOST: "volweb-postgresdb"
-    CSRF_TRUSTED_ORIGINS: "http://10.113.80.205.nip.io:3000"
+    CSRF_TRUSTED_ORIGINS: "https://10.113.80.205.nip.io:3000"
     DATABASE_PORT: "5432"
     POSTGRES_USER: "volweb"
     POSTGRES_PASSWORD: "volweb"
@@ -75,7 +75,7 @@ workers:
   env:
     DATABASE: "postgres"
     DATABASE_HOST: "volweb-postgresdb"
-    CSRF_TRUSTED_ORIGINS: "http://10.113.80.205.nip.io:3000"
+    CSRF_TRUSTED_ORIGINS: "https://10.113.80.205.nip.io:3000"
     DATABASE_PORT: "5432"
     POSTGRES_USER: "volweb"
     POSTGRES_PASSWORD: "volweb"
