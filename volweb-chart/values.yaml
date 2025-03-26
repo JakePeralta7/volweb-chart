@@ -55,7 +55,7 @@ backend:
     mountPath: /app/media
 
 # Database (PostgreSQL)
-postgresql:
+postgresdb:
   enabled: true
   image:
     repository: postgres
