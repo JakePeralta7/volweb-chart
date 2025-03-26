@@ -35,6 +35,8 @@ spec:
             {{- toYaml .Values.backend.resources | nindent 12 }}
           {{- if .Values.backend.persistence.enabled }}
           volumeMounts:
+            - name: staticfiles
+              mountPath: /home/app/web/staticfiles
             - name: media
               mountPath: /home/app/web/media
           {{- end }}
