@@ -93,7 +93,7 @@ nginx:
     pullPolicy: IfNotPresent
   service:
     type: ClusterIP
-    port: 80
+    port: 443
   config:
     clientMaxBodySize: "100M"
 
