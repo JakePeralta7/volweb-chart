@@ -5,18 +5,18 @@ metadata:
   name: {{ include "volweb.fullname" . }}-postgresdb
   labels:
     {{- include "volweb.labels" . | nindent 4 }}
-    app.kubernetes.io/component: postgresql
+    app.kubernetes.io/component: postgresdb
 spec:
   replicas: 1
   selector:
     matchLabels:
       {{- include "volweb.selectorLabels" . | nindent 6 }}
-      app.kubernetes.io/component: postgresql
+      app.kubernetes.io/component: postgresdb
   template:
     metadata:
       labels:
         {{- include "volweb.selectorLabels" . | nindent 8 }}
-        app.kubernetes.io/component: postgresql
+        app.kubernetes.io/component: postgresdb
     spec:
       containers:
         - name: postgresql
